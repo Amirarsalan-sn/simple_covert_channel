@@ -60,7 +60,8 @@ def send_message(message: str, index: int):
 ceq_mode = False
 while True:
     state = 'send'
-
+    time_out_number = 0
+    time_out_limit = 1000
     if ceq_mode:
         random_sequence = convert_num_code(new_random_sequence)
         ceq_mode = False
@@ -71,10 +72,14 @@ while True:
         ceq_mode = True
     if len(m) == 0:
         continue
+    time_out = False
     for i in range(len(m)):
+        if time_out:
+            break
         #print(f'sending {m[i]}')
         send_message(m, i)
         state = 'wait'
+        time_out_number = 0
         while state == 'wait':
             curr_clip = pyperclip.paste()
             clipboard_enc = curr_clip[len(curr_clip) - 24:len(curr_clip)]
@@ -83,4 +88,9 @@ while True:
                     state = 'sending'
 
             sleep(0.001)
+            time_out_number += 1
+            if time_out_number == time_out_limit:
+                print('time out reached, try to send the message again.')
+                time_out = True
+                break
     pyperclip.copy(previous_clipboard)

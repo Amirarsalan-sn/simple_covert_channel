@@ -58,6 +58,9 @@ while True:
                 enc_m = enc_m[:18] + '\t' + enc_m[19:]
 
                 pyperclip.copy(curr_clip[:curr_len-24] + enc_m)
+                if enc_m[17] == '\t':
+                    print(f'read a message: {buffer}')
+                    break
                 state = 'start'
                 #print(buffer)
                 continue
