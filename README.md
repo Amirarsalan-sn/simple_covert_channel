@@ -101,9 +101,9 @@ def send_message(message: str, index: int):
         new_clipboard = current_clipboard + enc_m
         previous_clipboard = current_clipboard
     pyperclip.copy(new_clipboard)
-'''
+```
 You can see how the 'previous_clipboard' is used here. And how the packet is prepared to be sent. this method uses 'convert_num_code()' method to convert(code) numbers of ascii codes to bunch of spaces and tabs.
-'''convert_num_code()
+```convert_num_code()
 def convert_num_code(number):
     result = ''
     digits = 8
