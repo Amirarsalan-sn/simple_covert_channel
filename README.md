@@ -1,4 +1,4 @@
-# Convex Channel Clipboard Message Exchange
+# Covert Channel Clipboard Message Exchange
 This project demonstrates the implementation of a covert channel for exchanging messages between two processes using the system clipboard. It utilizes a specific encoding scheme to embed the desired message in the clipboard data.
 ## Solution Description
 The main idea for solving this problem is to use the system clipboard as the platform for message transfer, along with a specific encoding for embedding the desired message in the clipboard. In this method, the sender reads the existing data from the clipboard, appends the desired data to it, and puts it back into the clipboard. The process of encoding and sending the message for transmission is as follows:
@@ -7,7 +7,7 @@ The main idea for solving this problem is to use the system clipboard as the pla
 3. Replace the last clipboard data with the encoded message and wait for the receiver to receive the data and inform you.
 4. Repeat steps 1-3 until all bytes of data have been transmitted.
 
-![data format](\images\data_format.jpg)
+![data format](images/data_format.jpg)
 
 The encoding scheme involves converting ones (1s) to "\t" and zeros (0s) to the space character. This choice of characters minimizes visual impact if the message is accidentally pasted during the exchange.
 In the following sections, we will discuss the usage of different parts of the data format shown in the image above.
@@ -189,7 +189,7 @@ def convert_code_num(code: str):
 ```
 ## An example
 Here you can see an example of sending and receiving messages:
-![example](\images\exammple.gif)
+![example](images/exammple.gif)
 ## Transfare rate
 Since the sender waits 1 miliseconds after each sending each packet, the transfare rate will be 1KB/SEC in the best case. other factors like time outs, programing langauge used to implement this protocol, user interacting with clipboard(for example copying and pasteing stuff) etc... will reduce the rate by which the data is transfared.
 
