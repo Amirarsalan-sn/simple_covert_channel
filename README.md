@@ -79,9 +79,9 @@ while True:
     pyperclip.copy(previous_clipboard)
 ```
 As you can see, there are some global variables(like random_sequence), and after that comes the main procedure.
-First, it initializes the global variables(some of them are flags which indicate occurence of 'ceq' mode or time out), then it receives the message from the user, does some chekings on it and tries to send it character by character using the 'send_message()' method.
+First, it initializes the global variables(some of them are flags which indicate occurence of 'ceq' mode or time out), then it receives the message from the user, does some chekings on it and tries to send it character by character using the `send_message()` method.
 After sending each byte of the message, it waits untill the receiver, receives the message and acknowledges the sender. Definitely, sender can't wait for ever, so there will be a time out threshold. if time_out occurs, the program will inform the user and asks for another message to send.
-The 'previous_clipboard' variable stores the last, clean data of system clipboard and it is updated and used inside 'send_message()' method. Here, after the message transmition is completed, the original data of clipboard(which is stored in 'previous_clipboard') is again pushed in the clipboard just to leave no trace of message transmission.
+The `previous_clipboard` variable stores the last, clean data of system clipboard and it is updated and used inside `send_message()` method. Here, after the message transmition is completed, the original data of clipboard(which is stored in `previous_clipboard`) is again pushed in the clipboard just to leave no trace of message transmission.
 ```send_message()
 def send_message(message: str, index: int):
     control_char = 8 * ' '
@@ -102,7 +102,7 @@ def send_message(message: str, index: int):
         previous_clipboard = current_clipboard
     pyperclip.copy(new_clipboard)
 ```
-You can see how the 'previous_clipboard' is used here. And how the packet is prepared to be sent. this method uses 'convert_num_code()' method to convert(code) numbers of ascii codes to bunch of spaces and tabs.
+You can see how the `previous_clipboard` is used here. And how the packet is prepared to be sent. this method uses `convert_num_code()` method to convert(code) numbers of ascii codes to bunch of spaces and tabs.
 ```convert_num_code()
 def convert_num_code(number):
     result = ''
@@ -128,7 +128,7 @@ def random_seq_gen():
 ## Explanation of receiver.py
 The receiver's responsibility is not as hard as the sender. It just reads the clipboard and waits for data from sender, once it detected the first message, it continues the receving process until the last byte has been received.
 It should mark messages as received(third bit of control bits) after getting the sender's data.
-It should check the received message and if the message indicated a change in the sequence number('ceq:number'), the sequence number should also be updated.
+It should check the received message and if the message indicated a change in the sequence number(`ceq:number`), the sequence number should also be updated.
 
 ```receiver
 while True:
