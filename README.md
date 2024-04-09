@@ -7,7 +7,7 @@ The main idea for solving this problem is to use the system clipboard as the pla
 3. Replace the last clipboard data with the encoded message and wait for the receiver to receive the data and inform you.
 4. Repeat steps 1-3 until all bytes of data have been transmitted.
 
-!data format image[\images\data_format.jpg]
+![\images\data_format.jpg]
 
 The encoding scheme involves converting ones (1s) to "\t" and zeros (0s) to the space character. This choice of characters minimizes visual impact if the message is accidentally pasted during the exchange.
 In the following sections, we will discuss the usage of different parts of the data format shown in the image above.
@@ -18,7 +18,7 @@ The "Single byte of data" section includes one byte of the desired data to be se
 
 The "Control bits" section contains control bits that determine the status of the message for both the sender and the receiver. The control bits are as follows:
 
-!control bits image[images/control_bits.jpg]
+![images/control_bits.jpg]
 
 - The first bit indicates whether this message is the sender's first message or not. This bit is included so that the receiver knows the start of the communication.
 - The second bit indicates whether this message is the final byte of data or not.
@@ -186,4 +186,14 @@ def convert_code_num(code: str):
         if code[index] == '\t':
             num += 2 ** (7-index)
     return num
+```
+## An example
+Here you can see an example of sending and receiving messages:
+![\images\exammple.gif]
+## Transfare rate
+Since the sender waits 1 miliseconds after each sending each packet, the transfare rate will be 1KB/SEC in the best case. other factors like time outs, programing langauge used to implement this protocol, user interacting with clipboard(for example copying and pasteing stuff) etc... will reduce the rate by which the data is transfared.
+
+## Requirments
+```
+pip install pyperclip
 ```
