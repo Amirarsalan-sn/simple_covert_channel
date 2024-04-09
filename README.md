@@ -118,7 +118,7 @@ def convert_num_code(number):
     return result
 ```
 And here, is the method used for generating new random sequences:
-```random_seq_gen()
+```python
 def random_seq_gen():
     global new_random_sequence
     random_seq = random.randint(0, 256)
