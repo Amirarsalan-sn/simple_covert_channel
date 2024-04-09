@@ -37,7 +37,7 @@ In this way, the sender can send a random sequence with the 'ceq' command.
 ## Explanation of sender.py
 Here, you can see the main procedure of the sender:
 
-```sender
+```python
 random_sequence = '\t \t \t \t '  # -> 1 0 1 0 1 0 1 0
 new_random_sequence = 0
 previous_clipboard = ''
@@ -82,7 +82,7 @@ As you can see, there are some global variables(like random_sequence), and after
 First, it initializes the global variables(some of them are flags which indicate occurence of 'ceq' mode or time out), then it receives the message from the user, does some chekings on it and tries to send it character by character using the `send_message()` method.
 After sending each byte of the message, it waits untill the receiver, receives the message and acknowledges the sender. Definitely, sender can't wait for ever, so there will be a time out threshold. if time_out occurs, the program will inform the user and asks for another message to send.
 The `previous_clipboard` variable stores the last, clean data of system clipboard and it is updated and used inside `send_message()` method. Here, after the message transmition is completed, the original data of clipboard(which is stored in `previous_clipboard`) is again pushed in the clipboard just to leave no trace of message transmission.
-```send_message()
+```python
 def send_message(message: str, index: int):
     control_char = 8 * ' '
     global random_sequence
@@ -103,7 +103,7 @@ def send_message(message: str, index: int):
     pyperclip.copy(new_clipboard)
 ```
 You can see how the `previous_clipboard` is used here. And how the packet is prepared to be sent. this method uses `convert_num_code()` method to convert(code) numbers of ascii codes to bunch of spaces and tabs.
-```convert_num_code()
+```python
 def convert_num_code(number):
     result = ''
     digits = 8
@@ -130,7 +130,7 @@ The receiver's responsibility is not as hard as the sender. It just reads the cl
 It should mark messages as received(third bit of control bits) after getting the sender's data.
 It should check the received message and if the message indicated a change in the sequence number(`ceq:number`), the sequence number should also be updated.
 
-```receiver
+```python
 while True:
     buffer = ''
     state = 'pending'
@@ -179,7 +179,7 @@ while True:
         sleep(0.001)
 ```
 The receiver aslo should know how to interpret spaces and tabs:
-```convert_code_num()
+```python
 def convert_code_num(code: str):
     num = 0
     for index in range(0, 8):
